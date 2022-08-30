@@ -29,8 +29,8 @@ namespace PBanco_Morangao
 
         public void LerFuncionario()
         {
-            Console.WriteLine($"Nome: {Nome} \nTelefone: {Telefone}\nE-mail: {Email}\nCpf: {Cpf} \nGênero: {Genero}");
+            Console.WriteLine($"Nome: {Nome} \nTelefone: {Telefone}\nE-mail: {Email}\nCpf: {Cpf} \nGênero: {Genero} + \nID Funcionário: {IdFunc} + \nCargo:{Cargo} + \nNível de acesso: {NivelAcesso}");
         }
-
+        //criar lista de funcionários
     }
 }

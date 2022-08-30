@@ -18,5 +18,18 @@ namespace PBanco_Morangao
             Clientes = clientes;
             Func = func;
         }
+
+        //criar lista Clientes
+        //criar lista Funcionarios
+        //criar lista Agências
+        //Adc cliente a lista
+        //Excluir cliente da lista
+        //Adc func a lista
+        //Excluir func da lista
+
+
+
     }
+
+
 }

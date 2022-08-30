@@ -49,6 +49,11 @@ namespace PBanco_Morangao
             {
                 TipoConta = "Conta Universitária";
             }
+
+            void LerCliente()
+            {
+                Console.WriteLine($"Nome: {Nome} \nTelefone: {Telefone}\nE-mail: {Email}\nCpf: {Cpf} \nGênero: {Genero} \nCliente Ativo: {Habilitar} \nEstudante?{Est}\nRenda: {Renda}\nTipo de conta: {TipoConta}");
+            }
         }
 
     }
