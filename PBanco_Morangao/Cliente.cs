@@ -17,7 +17,7 @@ namespace PBanco_Morangao
 
         public void CadastraCliente()
         {
-            Console.WriteLine("Habilitar cliente?\nS-Sim\n N-Não");
+            Console.WriteLine("Habilitar cliente?\nS-Sim\nN-Não");
             Habilitar = char.Parse(Console.ReadLine());
             if (Habilitar == 'S') {
                 Habilitado = true;

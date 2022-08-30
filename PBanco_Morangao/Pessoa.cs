@@ -18,6 +18,10 @@ namespace PBanco_Morangao
 
         public Pessoa()
         {
+        }
+
+        public void CadastrarPessoa()
+        {
             Console.WriteLine("Digite o nome: ");
             Nome = Console.ReadLine();
             Console.WriteLine("Digite o telefone: ");
@@ -32,6 +36,7 @@ namespace PBanco_Morangao
             endereco = new Endereco();
 
         }
+
         public void LerPessoa()
         {
             Console.WriteLine($"Nome: {Nome}\n Telefone: {Telefone} \n E-mail: {Email} \n Cpf: {Cpf} \n Gênero:{Genero}");

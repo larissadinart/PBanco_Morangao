@@ -11,12 +11,14 @@ namespace PBanco_Morangao
         private String Ag { get; set; }
         private String Clientes { get; set; }
         private String Func { get; set; }
+        protected List<string>ListaClientes = new List<string>();
 
         public Agencia(string ag, string clientes, string func)
         {
             Ag = ag;
             Clientes = clientes;
             Func = func;
+
         }
 
         //criar lista Clientes
