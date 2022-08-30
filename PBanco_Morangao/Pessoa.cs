@@ -8,11 +8,11 @@ namespace PBanco_Morangao
 {
     internal class Pessoa
     {
-        private String Nome;
-        private String Telefone;
-        private String Email;
-        private String Cpf;
-        private String Genero;
+        internal String Nome { get; set; }
+        internal String Telefone { get; set; }
+        internal String Email { get; set; }
+        internal String Cpf { get; set; }
+        internal String Genero { get; set; }
 
         public Pessoa()
         {
@@ -24,7 +24,7 @@ namespace PBanco_Morangao
             Email = Console.ReadLine();
             Console.WriteLine("Digite o cpf: ");
             Cpf = Console.ReadLine();
-            Console.WriteLine("Digite o gênero: \nM-Masculino \nF-Feminino");
+            Console.WriteLine("Digite o gênero: Masculino/Feminino/Outros");
 
         }
         public void LerPessoa()
