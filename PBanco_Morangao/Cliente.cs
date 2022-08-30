@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PBanco_Morangao
 {
-    internal class Cliente : Pessoa
+    internal class Cliente
     {
         bool Habilitado;
         char Habilitar;
@@ -52,7 +52,7 @@ namespace PBanco_Morangao
 
             void LerCliente()
             {
-                Console.WriteLine($"Nome: {Nome} \nTelefone: {Telefone}\nE-mail: {Email}\nCpf: {Cpf} \nGênero: {Genero} \nCliente Ativo: {Habilitar} \nEstudante?{Est}\nRenda: {Renda}\nTipo de conta: {TipoConta}");
+                
             }
         }
 
