@@ -6,7 +6,10 @@ namespace PBanco_Morangao
     {
         static void Main(string[] args)
         {
-            
+
+            Endereco c1 = new Endereco();
+
+    
         }
     }
 }

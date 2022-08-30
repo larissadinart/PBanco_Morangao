@@ -15,15 +15,21 @@ namespace PBanco_Morangao
         private string Cidade { get; set; }
         private string Cep { get; set; }
 
-        public Endereco(String logradouro, String numero, String bairro, String complemento, String cidade, String cep )
+        public Endereco()
         {
-            Logradouro = logradouro;
-            Numero = numero;
-            Bairro = bairro;
-            Cep = cep;
-            Complemento = complemento;
-            Cidade = cidade;
-            
+            Console.WriteLine("Digite o nome da rua/avenida: ");
+            Logradouro = Console.ReadLine();
+            Console.WriteLine("Digite o número: ");
+            Numero = Console.ReadLine();
+            Console.WriteLine("Digite o bairro: ");
+            Bairro = Console.ReadLine();
+            Console.WriteLine("Digite o CEP: ");
+            Cep = Console.ReadLine();
+            Console.WriteLine("Digite o complemento: ");
+            Complemento = Console.ReadLine();
+            Console.WriteLine("Digite a cidade: ");
+            Cidade = Console.ReadLine();
+
         }
         public override string ToString()
         {
