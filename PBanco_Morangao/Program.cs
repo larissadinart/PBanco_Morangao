@@ -10,8 +10,6 @@ namespace PBanco_Morangao
 
         }
 
-
-
         static public void MenuTipoDeAcesso()
         {
             double senhaf;
