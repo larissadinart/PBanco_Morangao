@@ -8,29 +8,36 @@ namespace PBanco_Morangao
 {
     internal class Funcionario
     {
-        private int IdFunc { get; set; }
-        private String Cargo { get; set; }
-        private String NivelAcesso { get; set; }
+        public int IdFunc { get; set; }
+        public String Cargo { get; set; }
+        public String NivelAcesso { get; set; }
+
+        public Pessoa pessoa;
+        public List<Funcionario> ListaRequisicoesFunc { get; set; } = new List<Funcionario>();
 
         public Funcionario()
         {
-            Console.WriteLine("Digite o ID do funcionário: \n1 - Gerência \n 2 - Outros");
+
+        }
+        public void TipoAcessoFunc()
+        {
+            Console.WriteLine("Digite o ID do funcionário: \n10 - Gerência \n 12 - Outros");
             IdFunc = int.Parse(Console.ReadLine());
-            Console.WriteLine("Digite o Cargo: ");
-            Cargo = Console.ReadLine();
-            if(IdFunc == 1)
+            if(IdFunc == 10)
             {
                 NivelAcesso = "Acesso Master";
-            }else if(IdFunc == 2)
+                Cargo = "Gerente";
+            }else if(IdFunc == 12)
             {
                 NivelAcesso = "Acesso Simples";
+                Cargo = "Funcionário";
             }
         }
-
-        public void LerFuncionario()
+        public void GetListReq()
         {
-            
+            foreach (var item in ListaRequisicoesFunc) Console.WriteLine(item);
         }
-        //criar lista de funcionários
+
+
     }
 }

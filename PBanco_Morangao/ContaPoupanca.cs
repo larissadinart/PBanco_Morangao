@@ -8,6 +8,11 @@ namespace PBanco_Morangao
 {
     internal class ContaPoupanca
     {
-        float Saldo;
+        public float Saldo { get; set; }
+
+        public ContaPoupanca()
+        {
+
+        }
     }
 }

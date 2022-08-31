@@ -6,29 +6,33 @@ using System.Threading.Tasks;
 
 namespace PBanco_Morangao
 {
-    internal class Cartao_Credito
+    internal class CartaoCredito
     {
-        char Habilitar;
-        bool Habilitado;
-        String Senha;
-        float Limite;
-        float Saldo;
-        double NumCartao;
-        DateTime VencCartao;
-        double DigVerificador;
-        DateTime ValidadeCartao;
+        public char HabilitarCredito { get; set; }
+        public bool Habilitado { get; set; }
+        public String Senha { get; set; }
+        public float Limite { get; set; }
+        public float Saldo { get; set; }
+        public double NumCartao { get; set; }
+        public DateTime VencFatura { get; set; }
+        public double DigVerificador { get; set; }
+        public DateTime ValidadeCartao { get; set; }
 
 
+        public CartaoCredito()
+        {
+
+        }
         public void BloqDesbloqCartao()
         {
             Console.WriteLine("Deseja bloquear ou desbloquear a função crédito do seu cartão?\nB-Bloquear\nD-Desbloquear");
-            Habilitar = char.Parse(Console.ReadLine());
+            HabilitarCredito = char.Parse(Console.ReadLine());
 
-            if(Habilitar == 'D')
+            if(HabilitarCredito == 'D')
             {
                 Habilitado = true;
                 Console.WriteLine("Cartão desbloqueado com sucesso!");
-            }else if(Habilitar == 'B')
+            }else if(HabilitarCredito == 'B')
             {
                 Habilitado = false;
                 Console.WriteLine("Cartão bloqueado com sucesso!");

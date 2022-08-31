@@ -8,38 +8,32 @@ namespace PBanco_Morangao
 {
     internal class Pessoa
     {
-        private String Nome { get; set; }
-        private String Telefone { get; set; }
-
-        private Endereco endereco;
-        private String Email { get; set; }
-        private String Cpf { get; set; }
-        private String Genero { get; set; }
+        public String Nome { get; set; }
+        public String Telefone { get; set; }
+        public String Email { get; set; }
+        public String Cpf { get; set; }
+        public String Genero { get; set; }
+        public Endereco endereco { get; set; }
 
         public Pessoa()
         {
-        }
-
-        public void CadastrarPessoa()
-        {
             Console.WriteLine("Digite o nome: ");
-            Nome = Console.ReadLine();
+            this.Nome = Console.ReadLine();
             Console.WriteLine("Digite o telefone: ");
-            Telefone = Console.ReadLine();
+            this.Telefone = Console.ReadLine();
             Console.WriteLine("Digite o e-mail: ");
-            Email = Console.ReadLine();
+            this.Email = Console.ReadLine();
             Console.WriteLine("Digite o cpf: ");
-            Cpf = Console.ReadLine();
+            this.Cpf = Console.ReadLine();
             Console.WriteLine("Digite o gênero - Masculino/Feminino/Outros: ");
-            Genero = Console.ReadLine();
+            this.Genero = Console.ReadLine();
             Console.WriteLine("Dados do endereço: ");
-            endereco = new Endereco();
-
+            this.endereco = new Endereco();
         }
 
-        public void LerPessoa()
+        public override string ToString()
         {
-            Console.WriteLine($"Nome: {Nome}\n Telefone: {Telefone} \n E-mail: {Email} \n Cpf: {Cpf} \n Gênero:{Genero}");
+            return $"Nome: {Nome}\n Telefone: {Telefone} \n E-mail: {Email} \n Cpf: {Cpf} \n Gênero:{Genero}";
         }
     }
 

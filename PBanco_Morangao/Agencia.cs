@@ -8,47 +8,53 @@ namespace PBanco_Morangao
 {
     internal class Agencia
     {
-        private String Ag { get; set; }
-        private String Clientes { get; set; }
-        private String Func { get; set; }
-        protected List<Cliente>ListaClientes = new List<Cliente>();
-        protected List<Funcionario> ListaFuncionarios = new List<Funcionario>();
-        protected List<Agencia> ListaAgencias = new List<Agencia>();
+        public String nome { get; set; }
+        public List<Cliente> ListaClientes { get; set; } = new List<Cliente>();
+        public List<Funcionario> ListaFuncionarios { get; set; } = new List<Funcionario>();
+        public List<Agencia> ListaAgencias { get; set; } = new List<Agencia>();
 
-        public Agencia(string ag, string clientes, string func)
+        public Agencia(string nome)
         {
-            Ag = ag;
-            Clientes = clientes;
-            Func = func;
-
+            this.nome = nome;
         }
 
-        public void AdicionarCliente(Cliente cliente)
+        public void AdddCliente(Cliente cliente)
         {
             ListaClientes.Add(cliente);
         }
-        public void AdicionarFuncionario(Funcionario funcionario)
+        public void AddFuncionario(Funcionario funcionario)
         {
             ListaFuncionarios.Add(funcionario);
         }
-        public void AdicionarAgencia(Agencia agencia)
+        public void AddAgencia(Agencia agencia)
         {
             ListaAgencias.Add(agencia);
         }
 
-        public void ExcluirCliente(Cliente cliente)
+        public void DelCliente(Cliente cliente)
         {
             ListaClientes.Remove(cliente);
         }
-        public void ExcluirFuncionario(Funcionario funcionario)
+        public void DelFuncionario(Funcionario funcionario)
         {
             ListaFuncionarios.Remove(funcionario);
         }
-        public void ExcluirAgencia(Agencia agencia)
+        public void DelAgencia(Agencia agencia)
         {
-            ListaAgencias.Add(agencia);
+            ListaAgencias.Remove(agencia);
         }
-
+        public void GetListClientes()
+        {
+            foreach (var item in ListaAgencias)Console.WriteLine(item);
+        }
+        public void GetListFuncionarios()
+        {
+            foreach (var item in ListaFuncionarios) Console.WriteLine(item);
+        }
+        public void GetListAgencias()
+        {
+            foreach (var item in ListaAgencias) Console.WriteLine(item);
+        }
 
 
 
