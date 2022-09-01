@@ -36,6 +36,35 @@ namespace PBanco_Morangao
         {
 
         }
+        public void Sacar(float valor)
+        {
+            if (Saldo+Limite < valor)
+            {
+                Console.WriteLine("Valor do saque maior do que valor disponível!");
+                Sacar(valor);
+            }
+            else
+            {
+                if (Saldo < 0)
+                {
+                    Console.WriteLine("Saque feito com sucesso!");
+                    Saldo = Saldo +(- valor);
+                    Console.WriteLine($"Saldo: {Saldo}");
+                }
+                else 
+                { 
+                Console.WriteLine("Saque feito com sucesso!");
+                Saldo = Saldo - valor;
+                Console.WriteLine($"Saldo: {Saldo}");
+                }
+
+            }
+        }
+        public void Depositar(float valor)
+        {
+            Saldo = Saldo + valor;
+            Console.WriteLine($"Deposito feito com sucesso!\nSaldo:{Saldo}");
+        }
         //buscar agencia e conta
 
 

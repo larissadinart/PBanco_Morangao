@@ -9,16 +9,18 @@ namespace PBanco_Morangao
     internal class Agencia
     {
         public String nome { get; set; }
-        public List<Cliente> ListaClientes { get; set; } = new List<Cliente>();
+        
         public List<Funcionario> ListaFuncionarios { get; set; } = new List<Funcionario>();
         public List<Agencia> ListaAgencias { get; set; } = new List<Agencia>();
+
+        public List<Cliente> ListaClientes = new List<Cliente>();
 
         public Agencia(string nome)
         {
             this.nome = nome;
         }
 
-        public void AdddCliente(Cliente cliente)
+        public void AddCliente(Cliente cliente)
         {
             ListaClientes.Add(cliente);
         }
@@ -33,7 +35,7 @@ namespace PBanco_Morangao
 
         public void DelCliente(Cliente cliente)
         {
-            ListaClientes.Remove(cliente);
+            //ListaClientes.Remove(cliente);
         }
         public void DelFuncionario(Funcionario funcionario)
         {
