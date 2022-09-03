@@ -11,9 +11,9 @@ namespace PBanco_Morangao
         public int IdFunc { get; set; }
         public String Cargo { get; set; }
         public String NivelAcesso { get; set; }
+        public Pessoa pessoa { get; set; }
 
-        public Pessoa pessoa;
-        public List<Funcionario> ListaRequisicoesFunc { get; set; } = new List<Funcionario>();
+
 
         public Funcionario()
         {
@@ -33,9 +33,10 @@ namespace PBanco_Morangao
                 Cargo = "Funcionário";
             }
         }
-        public void GetListReq()
+
+        public override string ToString()
         {
-            foreach (var item in ListaRequisicoesFunc) Console.WriteLine(item);
+            return $"{pessoa.ToString()}\nID do Funcionário: {IdFunc} \nCargo: {Cargo}\nNível de Acesso: {NivelAcesso}";
         }
 
 

@@ -1,25 +1,24 @@
 ﻿using System;
+using System.Collections; // IList
+using System.Collections.Generic; //List
+using System.IO; //Utilizado para Manipulação de Arquivos
 
 namespace PBanco_Morangao
 {
     internal class Program
     {
-        static int agencia = 0, tipoAcesso = 0;
-        static string nomeAgencia = "", cargo;
+        static int agencia, tipoAcesso = 0;
+        static string nomeAgencia = "";
         static double senhaGer = 654321, senhaG = 0;
         static double senhaFun = 123456, senhaF = 0;
+        static bool gerente;
 
         private static Agencia agencia1 = new Agencia("Morango do Nordeste");
         private static Agencia agencia2 = new Agencia("Morango do Sudeste");
 
         static void Main(string[] args)
         {
-
             MenuAgencia();
-            //ContaCorrente conta1 = new ContaCorrente();
-            //conta1.Saldo = -100;
-            //conta1.Limite = resolver problema de valor negativo
-            //conta1.Sacar(50);
         }
         static public void MenuAgencia()
         {
@@ -32,7 +31,6 @@ namespace PBanco_Morangao
             }
             catch
             {
-                Console.WriteLine("Opção inválida!");
             }
             Console.WriteLine();
             if (agencia == 1)
@@ -47,23 +45,23 @@ namespace PBanco_Morangao
             }
             else
             {
+                Console.Clear();
                 Console.WriteLine("\nOpção inválida, tente novamente!\n");
                 MenuAgencia();
             }
-        }
+        } //ESTÁ PRONTO!
         public static void MenuTipoAcesso()
         {
             Console.WriteLine($"Agência escolhida: {nomeAgencia}");
-            Console.WriteLine("\nEscolha a opção desejada: \n\n1-Sou Cliente\n2-Sou Funcionário\n3-Sou Gerente\n0-Voltar a tela anterior");
+            Console.WriteLine("\nEscolha a opção desejada: \n\n1-Sou Cliente\n2-Sou Funcionário\n3-Sou Gerente\n0-Voltar para tela anterior");
             try
             {
                 tipoAcesso = int.Parse(Console.ReadLine());
             }
             catch
             {
-                Console.WriteLine("\nOpção inválida, tente novamente!\n");
             }
-            Console.WriteLine();
+            Console.WriteLine(); //PQ?
             if (tipoAcesso == 1)
             {
                 Console.Clear();
@@ -73,6 +71,7 @@ namespace PBanco_Morangao
             {
                 Console.Clear();
                 Console.WriteLine("Opção: Sou Funcionário:");
+                gerente = false;
                 MenuSenhaFuncGer();
 
                 //Como salvar esse objeto na lista de clientes?
@@ -82,7 +81,8 @@ namespace PBanco_Morangao
             else if (tipoAcesso == 3)
             {
                 Console.Clear();
-                Console.WriteLine("Opção: Sou Funcionário:");
+                Console.WriteLine("Opção: Sou Gerente:");
+                gerente = true;
                 MenuSenhaFuncGer();
             }
             else if (tipoAcesso == 0)
@@ -96,14 +96,30 @@ namespace PBanco_Morangao
                 MenuAgencia();
             }
         }
+
+
+
         public static void MenuSenhaFuncGer()
         {
 
-            if (tipoAcesso == 1)
+            if (gerente == true)
             {
-                //funcoes cliente
+                Console.Clear();
+                Console.WriteLine("Digite a senha de acesso: ");
+                senhaG = int.Parse(Console.ReadLine());
+
+                if (senhaG != senhaGer)//acesso gerente
+                {
+                    Console.WriteLine("Senha inválida! Tente novamente!\nAperte 0 para voltar:");
+                    Console.ReadKey();
+                    MenuSenhaFuncGer();
+                }
+                else
+                {
+                    //ENTRAR MENU GERENTE
+                }
             }
-            else if (tipoAcesso == 2)
+            else if (gerente == false)//acesso funcionario
             {
                 Console.Clear();
                 Console.WriteLine("Digite a senha de acesso: ");
@@ -115,45 +131,51 @@ namespace PBanco_Morangao
                     Console.ReadKey();
                     MenuSenhaFuncGer();
                 }
-            }
-            else if (tipoAcesso == 3)
-            {
-                Console.Clear();
-                do
+                else
                 {
-                    Console.WriteLine("Digite a senha de acesso: ");
-                    senhaF = int.Parse(Console.ReadLine());
-                } while (senhaG != senhaGer);
-                Console.WriteLine("Senha inválida! Tente novamente!\nAperte 0 para voltar:");
-                Console.ReadKey();
-                MenuSenhaFuncGer();
+                    MenuAcessoFunc();
+                }
             }
-
         }
-        static public void MenuAcessoFunc()
+        static public void MenuAcessoFunc() //CHAMAR METODO PARA GUARDAR CLIENTE EM ARQUIVO TXT
         {
             int opFunc;
-            if (tipoAcesso == 1 && senhaF == senhaFun)
-            {
-                Console.WriteLine("Digite a opção que deseja fazer: \n1- Cadastrar Cliente\n2- Verificar requisições pendentes");
-                opFunc = int.Parse(Console.ReadLine());
 
-                if (opFunc == 1)
+            Console.WriteLine("Digite a opção que deseja fazer: \n1- Cadastrar Cliente\n2- Verificar Requisições Pendentes");
+            opFunc = int.Parse(Console.ReadLine());
+
+            if (opFunc == 1)
+            {
+                Cliente cliente = new Cliente();
+                cliente.CadastrarCliente();
+                if (agencia == 1)
                 {
-                    Cliente cl1 = new Cliente();
+                    agencia1.AddCliente(cliente);
+                    agencia1.GravarArquivo(cliente);
+                    MenuTipoAcesso();
+                }
+                else if (agencia == 2)
+                {
+                    agencia2.AddCliente(cliente);
+                    agencia2.GravarArquivo(cliente);
+                    MenuTipoAcesso();
                 }
                 else if (opFunc == 2)
                 {
-                    //abrir lista de requisicoes
+                    agencia1.LerArquivo(); //REVER ESTE METODO
+
+                    MenuTipoAcesso();
+
                 }
             }
 
         }
 
-
+   
 
     }
 }
+
 
 
 

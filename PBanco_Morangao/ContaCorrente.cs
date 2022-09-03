@@ -32,40 +32,34 @@ namespace PBanco_Morangao
         {
             
         }
-        public void BuscarAgencia(int ag ,double conta, int senha)
-        {
-
-        }
-        public void Sacar(float valor)
+        public void MovimentarSaida(float valor)
         {
             if (Saldo+Limite < valor)
             {
                 Console.WriteLine("Valor do saque maior do que valor disponível!");
-                Sacar(valor);
+                MovimentarSaida(valor);
             }
             else
             {
-                if (Saldo < 0)
+                if (Saldo+Limite > valor)
                 {
                     Console.WriteLine("Saque feito com sucesso!");
-                    Saldo = Saldo +(- valor);
+                    Saldo = Saldo +(- valor); //VERIFICAR ESSE CALCULOO!!!!
                     Console.WriteLine($"Saldo: {Saldo}");
-                }
-                else 
-                { 
-                Console.WriteLine("Saque feito com sucesso!");
-                Saldo = Saldo - valor;
-                Console.WriteLine($"Saldo: {Saldo}");
                 }
 
             }
         }
-        public void Depositar(float valor)
+        public void MovimentarEntrada(float valor)
         {
             Saldo = Saldo + valor;
             Console.WriteLine($"Deposito feito com sucesso!\nSaldo:{Saldo}");
         }
-        //buscar agencia e conta
+        public void SolicitarEmprestimo(float valor) //montar este metodo
+        {
+
+        }
+        
 
 
     }

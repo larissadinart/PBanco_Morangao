@@ -9,35 +9,40 @@ namespace PBanco_Morangao
     internal class Cliente
     {
         public bool Habilitado { get; set; }
-        public char Habilitar { get; set; }
+        public int Habilitar { get; set; }
         public bool Estudante { get; set; }
-        public char Est { get; set; }
+        public int Est { get; set; }
         public float Renda { get; set; }
         public String TipoConta { get; set; }
         public ContaCorrente contaCorrente { get; set; }
         public Pessoa pessoa { get; set; }
         public Agencia ag { get; set; }
-        public Cliente(Pessoa pessoa)
-        {
-            this.pessoa = pessoa;
-        }
-        
+        public ContaPoupanca contaPoupanca { get; set; }
+        public CartaoCredito cartaocredito { get; set; }
 
         public Cliente()
         {
+            
+        }
+        
+
+        public void CadastrarCliente()
+        {
             int opcaoConta;
+            Pessoa pessoa = new Pessoa();
 
             Console.WriteLine("Opção: Cadastrar Novo Cliente:\n");
 
-            pessoa = new Pessoa();
+            pessoa.CadastrarPessoa();
 
-            Console.WriteLine("Cliente é estudante?\nS-Sim\n N-Não");
-            this.Est = char.Parse(Console.ReadLine());
-            if (Habilitar == 'S')
+            
+            Console.WriteLine("Cliente é estudante?\n1-Sim\n2-Não"); //TRATAR ERROS NAS OPÇÕES
+            this.Est = int.Parse(Console.ReadLine());
+            if (Habilitar == '1')
             {
                 Habilitado = true;
             }
-            else if (Habilitar == 'N')
+            else if (Habilitar == '2')
             {
                 Habilitado = false;
             }
@@ -71,20 +76,25 @@ namespace PBanco_Morangao
                 this.TipoConta = Console.ReadLine();
                 Console.WriteLine($"Opção escolhida: {TipoConta}");
             }
-            Console.WriteLine("Habilitar cliente?\nS-Sim\nN-Não");
+            Console.WriteLine("Habilitar cliente?\n1-Sim\n2-Não");//TRATAR ERROS
             Habilitar = char.Parse(Console.ReadLine());
-            if (Habilitar == 'S')
+            if (Habilitar == '1')
             {
                 this.Habilitado = true;
             }
-            else if (Habilitar == 'N')
+            else if (Habilitar == '2')
             {
                 this.Habilitado = false;
             }
-        }
-        void LerCliente()
-        {
 
+            this.pessoa = pessoa;
+
+            
+        }
+
+        public override string ToString()
+        {
+            return ($"{this.pessoa.Nome}"); //REVER ESTE METODO
         }
     }
 
