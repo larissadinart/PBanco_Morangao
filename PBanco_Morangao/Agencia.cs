@@ -10,108 +10,150 @@ namespace PBanco_Morangao
     internal class Agencia
     {
         public String Nome { get; set; }
-        
-        public List<Funcionario> ListaFuncionarios { get; set; } = new List<Funcionario>();//***** ANALISAR SE AS LISTAS DEVEM, FOCAR AQUI
-        public List<Agencia> ListaAgencias { get; set; } = new List<Agencia>();//***** ANALISAR SE AS LISTAS DEVEM, FOCAR AQUI
 
-        public List<Cliente> ListaClientes = new List<Cliente>();//***** ANALISAR SE AS LISTAS DEVEM, FOCAR AQUI
-        public List<Funcionario> ListaRequisicoesFunc { get; set; } = new List<Funcionario>();//***** ANALISAR SE AS LISTAS DEVEM, FOCAR AQUI
+        private List<ContaCorrente> ListContaCorrente = new List<ContaCorrente>();
+        public List<Funcionario> ListaFuncionarios { get; set; } = new List<Funcionario>();//***** ANALISAR SE AS LISTAS DEVEM, FICAR AQU
 
-        public Agencia(string nome)
+        public List<Cliente> ListaClientes { get; set; } = new List<Cliente>();
+
+        public List<Cliente> ListaAprovacoesGerente { get; set; } = new List<Cliente>();
+
+        public List<ContaCorrente> ListaAprovacoesEmprestimo { get; set; } = new List<ContaCorrente>();
+
+        public Agencia()
         {
-            this.Nome = nome;
+
         }
 
-        public void AddCliente(Cliente cliente)
+        public void AdcClienteListaGerente(Cliente cliente)
         {
-            ListaClientes.Add(cliente);
+            ListaAprovacoesGerente.Add(cliente);
             Console.WriteLine("Cliente incluído com sucesso!");
+        }
+        public Cliente GetListaGerente()
+        {
+            foreach (var item in ListaAprovacoesGerente) if (item != null)
+                    return item;
+            Console.WriteLine("Não há empréstimos para aprovar!");
+            return null;
+        }
+        public void DelCliente(Cliente cliente)
+        {
+            ListaClientes.Remove(cliente);
         }
         public void AddFuncionario(Funcionario funcionario)
         {
             ListaFuncionarios.Add(funcionario);
-        }
-        public void DelCliente(Cliente cliente)
+            Console.WriteLine("Cadastro realizado com sucesso!");
+        } //ok
+        public void AddConta(ContaCorrente conta)
         {
-            //ListaClientes.Remove(cliente);
-        }
+            ListContaCorrente.Add(conta);
+            Console.WriteLine("Cadastro realizado com sucesso!");
+        }//ok
         public void DelFuncionario(Funcionario funcionario)
         {
             ListaFuncionarios.Remove(funcionario);
-        }
-        public void GetListClientes()
-        {
-            foreach (var item in ListaAgencias)Console.WriteLine(item);
-        }
+        }//ok
         public void GetListFuncionarios()
         {
-            foreach (var item in ListaFuncionarios) Console.WriteLine(item);
-        }
-        public void GetListAgencias()
+            foreach (var item in ListaFuncionarios)
+                if (item != null) Console.WriteLine($"FUNCIONÁRIO: {ListaFuncionarios}\n{item}\n");
+                else Console.WriteLine("Não existem funcionários cadastrados!");
+        } //ok
+        public void GetListConta()
         {
-            foreach (var item in ListaAgencias) Console.WriteLine(item);
-        }
-        public void GetListReq()
-        {
-            foreach (var item in ListaRequisicoesFunc) Console.WriteLine(item);
-        }
-        public void GravarArquivo(Cliente cliente)
-        {
-            Console.WriteLine("Cadastrando cliente...");
-            try
+            foreach (var item in ListContaCorrente)
             {
-                StreamWriter sw = new StreamWriter("C:\\Listas\\Agencia1.txt");
-                sw.WriteLine("Primeiro Cliente:" + cliente.ToString());
-                sw.Flush();
-                sw.Close();
-                sw.Dispose();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception: " + e.Message);
-            }
-            finally
-            {
-                Console.WriteLine("Executando o Bloco de Comandos.");
-            }
-            Console.WriteLine("Fim do Cadastro");
-            return;
-        }
-        public void LerArquivo()
-        {
-            string line;
-            try
-            {
-                StreamReader sr = new StreamReader("C:\\Listas\\Agencia1.txt");
-                line = sr.ReadLine();
-                while (line != null)
+                if (item != null)
                 {
-                    Console.WriteLine(line);
-                    line = sr.ReadLine();
+                    Console.WriteLine(item + "\n");
+                    Console.ReadKey();
                 }
-                sr.Close();
-                Console.WriteLine("Fim da Leitura do Arquivo");
-                Console.ReadLine();
+                else Console.WriteLine("A lista está vazia!");
             }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception: " + e.Message);
-            }
-            finally
-            {
-                Console.WriteLine("Executando o Bloco de Comando - Sem Erros");
-            }
-
-            return;
-
+        }//ok
+        public Cliente BuscarAprovacoesContas()
+        {
+            foreach (var item in ListaAprovacoesGerente) if (item != null) return item;
+            return null;
         }
+        public void setListaAprovacaoContas(Cliente cliente)
+        {
+            ListaAprovacoesGerente.Add(cliente);
+            Console.WriteLine("Aguardando aprovação do gerente...");
+        }//ok
+        public void DelListaAprovacao(Cliente cliente)
+        {
+            ListaAprovacoesGerente.Remove(cliente);
+        }//ok
+        public ContaCorrente getSolicitacaoEmprestimo()
+        {
+            foreach (var item in ListaAprovacoesEmprestimo) if (item != null) return item;
+            Console.WriteLine("Não há empréstimos para aprovar!");
+            return null;
+        }//ok
+        public void SetSolicitacaoEmprestimo(ContaCorrente conta)
+        {
+            ListaAprovacoesEmprestimo.Add(conta);
+            Console.WriteLine("Aguardando aprovação...");
+        }
+        public void DelSolicitacaoEmprestimo(ContaCorrente conta)
+        {
+            ListaAprovacoesEmprestimo.Remove(conta);
+        }//ok
+        public void AprovarAberturaContas()
+        {
+            {
+                Console.Clear();
 
+                for (int i = 0; i < ListaAprovacoesGerente.Count; i++)
+                {
+                    Cliente cliente = ListaAprovacoesGerente[i];
 
+                    Console.WriteLine("\n" + cliente + "\n");
+                    string opcao;
+                    Console.WriteLine("Deseja aprovar este cliente?\n1- Sim\n2- Não");
+                    opcao = Console.ReadLine();
 
+                    if (opcao == "1")
+                    {
+                       
+                        ListaClientes.Add(cliente);
 
+                        ListaAprovacoesGerente.Remove(cliente);
 
+                        i -= 1;
+                    }
 
+                    else
+                    {
+                        Console.WriteLine("NÃO APROVADO.");
+
+                        ListaAprovacoesGerente.Remove(cliente);
+                    }
+                }
+
+                Console.WriteLine("Fim das solicitações!\nAperte 0 para voltar.");
+                Console.ReadKey();
+            }
+        }
+        public Cliente BuscarCliente(string conta, string agencia, string senha)
+        {
+            foreach (Cliente cliente in ListaClientes)
+            {
+                if (cliente != null && cliente.contaCorrente.NumConta == conta && cliente.contaCorrente.Ag == agencia && cliente.contaCorrente.Senha == senha)
+                {
+                    return cliente;
+                }
+            }return null;
+        }
     }
 
 
 }
+
+
+
+
+

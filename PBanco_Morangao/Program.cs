@@ -7,53 +7,21 @@ namespace PBanco_Morangao
 {
     internal class Program
     {
-        static int agencia, tipoAcesso = 0;
-        static string nomeAgencia = "";
+        static int tipoAcesso = 0;
         static double senhaGer = 654321, senhaG = 0;
         static double senhaFun = 123456, senhaF = 0;
         static bool gerente;
-
-        private static Agencia agencia1 = new Agencia("Morango do Nordeste");
-        private static Agencia agencia2 = new Agencia("Morango do Sudeste");
+        static Agencia agencia = new Agencia();
 
         static void Main(string[] args)
         {
-            MenuAgencia();
+            MenuTipoAcesso();
         }
-        static public void MenuAgencia()
-        {
-
-            Console.WriteLine("Bem vindo ao Banco Morangão!");
-            Console.WriteLine("\nDigite a agência desejada: \n\n1 - Morango Do Nordeste\n2 - Morango Do Sudeste \n");
-            try
-            {
-                agencia = int.Parse(Console.ReadLine());
-            }
-            catch
-            {
-            }
-            Console.WriteLine();
-            if (agencia == 1)
-            {
-                nomeAgencia = "Morango Do Nordeste";
-                MenuTipoAcesso();
-            }
-            else if (agencia == 2)
-            {
-                nomeAgencia = "Morango Do Sudeste";
-                MenuTipoAcesso();
-            }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("\nOpção inválida, tente novamente!\n");
-                MenuAgencia();
-            }
-        } //ESTÁ PRONTO!
         public static void MenuTipoAcesso()
         {
-            Console.WriteLine($"Agência escolhida: {nomeAgencia}");
-            Console.WriteLine("\nEscolha a opção desejada: \n\n1-Sou Cliente\n2-Sou Funcionário\n3-Sou Gerente\n0-Voltar para tela anterior");
+            Console.Clear();
+            Console.WriteLine(">>>>>BEM VINDO AO BANCO MORANGÃO!!<<<<<");
+            Console.WriteLine("\nEscolha a opção desejada: \n\n1- Sou Cliente\n2- Sou Funcionário\n3- Sou Gerente");
             try
             {
                 tipoAcesso = int.Parse(Console.ReadLine());
@@ -61,11 +29,12 @@ namespace PBanco_Morangao
             catch
             {
             }
-            Console.WriteLine(); //PQ?
+            Console.WriteLine();
             if (tipoAcesso == 1)
             {
                 Console.Clear();
-                Console.WriteLine("Opção: Sou Cliente:"); //chamar metodos cliente
+                Console.WriteLine("Opção: Sou Cliente:");
+                MenuAcessoCliente();
             }
             else if (tipoAcesso == 2)
             {
@@ -73,10 +42,6 @@ namespace PBanco_Morangao
                 Console.WriteLine("Opção: Sou Funcionário:");
                 gerente = false;
                 MenuSenhaFuncGer();
-
-                //Como salvar esse objeto na lista de clientes?
-                //enviar requisição da abertura para funcionário/gerente
-
             }
             else if (tipoAcesso == 3)
             {
@@ -88,18 +53,15 @@ namespace PBanco_Morangao
             else if (tipoAcesso == 0)
             {
                 Console.Clear();
-                MenuAgencia();
+
             }
             else
             {
                 Console.WriteLine("\nOpção inválida, tente novamente!\n");
-                MenuAgencia();
+
             }
         }
-
-
-
-        public static void MenuSenhaFuncGer()
+        static public void MenuSenhaFuncGer()
         {
 
             if (gerente == true)
@@ -107,6 +69,7 @@ namespace PBanco_Morangao
                 Console.Clear();
                 Console.WriteLine("Digite a senha de acesso: ");
                 senhaG = int.Parse(Console.ReadLine());
+                MenuAcessoGer();
 
                 if (senhaG != senhaGer)//acesso gerente
                 {
@@ -137,41 +100,120 @@ namespace PBanco_Morangao
                 }
             }
         }
-        static public void MenuAcessoFunc() //CHAMAR METODO PARA GUARDAR CLIENTE EM ARQUIVO TXT
+        static public void MenuAcessoFunc()
         {
             int opFunc;
 
-            Console.WriteLine("Digite a opção que deseja fazer: \n1- Cadastrar Cliente\n2- Verificar Requisições Pendentes");
+            Console.Clear();
+            Console.WriteLine("Digite a operação que deseja fazer: \n\n1- Cadastrar Cliente\n2- Voltar ao Menu Anterior");
             opFunc = int.Parse(Console.ReadLine());
 
             if (opFunc == 1)
             {
                 Cliente cliente = new Cliente();
-                cliente.CadastrarCliente();
-                if (agencia == 1)
-                {
-                    agencia1.AddCliente(cliente);
-                    agencia1.GravarArquivo(cliente);
-                    MenuTipoAcesso();
-                }
-                else if (agencia == 2)
-                {
-                    agencia2.AddCliente(cliente);
-                    agencia2.GravarArquivo(cliente);
-                    MenuTipoAcesso();
-                }
-                else if (opFunc == 2)
-                {
-                    agencia1.LerArquivo(); //REVER ESTE METODO
 
-                    MenuTipoAcesso();
+                agencia.AdcClienteListaGerente(cliente);
+                agencia.GetListaGerente();
+                MenuTipoAcesso();
 
-                }
             }
 
+            else if (opFunc == 2)
+            {
+                MenuTipoAcesso();
+            }
         }
 
-   
+        static public void MenuAcessoGer()
+        {
+            int opGer;
+
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Digite a operação que deseja fazer: \n1- Abrir Lista De Aprovações Pendentes\n2- Sair");
+                opGer = int.Parse(Console.ReadLine());
+            } while (opGer < 1 || opGer > 2);
+
+            if (opGer == 1)
+            {
+                agencia.AprovarAberturaContas();
+                MenuTipoAcesso();
+            }
+            else
+            {
+                Environment.Exit(0);
+            }
+
+
+        }
+        static public void MenuAcessoCliente()
+        {
+            int opCli;
+            float saida = 0;
+            int senha = 0;
+            string conta, agencia;
+            string banco;
+            int codBarras;
+            float entrada;
+
+            ContaCorrente contacorrente = new ContaCorrente();
+
+                Console.WriteLine("Digite o número da conta: ");
+                conta = Console.ReadLine();
+                Console.WriteLine("Digite a agência: ");
+                agencia = Console.ReadLine();
+                Console.WriteLine("Digite a senha: ");
+                senha = int.Parse(Console.ReadLine());
+
+            Cliente cliente = agencia.BuscarCliente;
+
+
+            Console.WriteLine("Digite a operação que deseja fazer:\n1-Sacar\n2-Transferir\n3-Pagamentos\n4-Depositar\n5-Sair");
+            opCli = int.Parse(Console.ReadLine());
+
+
+            if (opCli == 1)
+            {
+
+                Console.WriteLine(">>SAQUE<<\n");
+                Console.WriteLine("Digite o valor para saque: ");
+                saida = float.Parse(Console.ReadLine());
+                contacorrente.MovimentarSaida(saida);
+            }
+            else if (opCli == 2)
+            {
+                Console.WriteLine(">>TRANSFERÊNCIA<<\n");
+                Console.WriteLine("Digite o número da conta para qual deseja transferir: ");
+                conta = Console.ReadLine();
+                Console.WriteLine("Digite o número da agência: ");
+                banco = Console.ReadLine();
+                Console.WriteLine("Digite o valor para transferência: ");
+                saida = float.Parse(Console.ReadLine());
+                contacorrente.MovimentarSaida(saida);
+            }
+            else if (opCli == 3)
+            {
+                Console.WriteLine(">>PAGAMENTOS<<\n");
+                Console.WriteLine("Digite o código de barras da conta: ");
+                codBarras = int.Parse(Console.ReadLine());
+                Console.WriteLine("Digite o valor da conta: ");
+                saida = float.Parse(Console.ReadLine());
+                contacorrente.MovimentarSaida(saida);
+            }
+            else if (opCli == 4)
+            {
+                Console.WriteLine(">>DEPÓSITO<<\n");
+                Console.WriteLine("Digite o valor do depósito: ");
+                entrada = float.Parse(Console.ReadLine());
+                contacorrente.MovimentarEntrada(entrada);
+            }
+            else if (opCli == 5)
+            {
+                Environment.Exit(0);
+            }
+        }
+
 
     }
 }
@@ -180,45 +222,11 @@ namespace PBanco_Morangao
 
 
 
-////private static void MenuAgenciaCliente(int numAgencia)
-////{
-////    Agencia agenciaEscolhida;
-////    if (numAgencia == 1)
-////    {
-////        agenciaEscolhida = agencia1;
-////    }
-////    else if (numAgencia == 2)
-////    {
-////        agenciaEscolhida = agencia2;
-////    }
-////    else
-////    {
-////        return;//rever para colocar mensagem de erro
-////    }
-
-////    /*
-////     * Selecionada a agência, digitar a conta corrente e senha?
-////        MENUS PARA
-////        //sacar
-////        //depositar
-////        //transferir
-////        //pagar conta 
-////        //solicitar emprestimo
-////     */
-////}
 
 
-//static public void JaSouCliente()
-//{
-//    string login;
-//    string senha;
 
-//    Console.WriteLine("Olá, digite o número da conta: ");
-//    login = Console.ReadLine();
-//    Console.WriteLine("Digite sua senha: ");
-//    senha = Console.ReadLine();
 
-//    //validar login e senha
-//    //fazer  saques transf e etc
+
+
 
 

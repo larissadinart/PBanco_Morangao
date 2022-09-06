@@ -8,8 +8,7 @@ namespace PBanco_Morangao
 {
     internal class Cliente
     {
-        public bool Habilitado { get; set; }
-        public int Habilitar { get; set; }
+
         public bool Estudante { get; set; }
         public int Est { get; set; }
         public float Renda { get; set; }
@@ -22,79 +21,60 @@ namespace PBanco_Morangao
 
         public Cliente()
         {
-            
-        }
-        
-
-        public void CadastrarCliente()
-        {
             int opcaoConta;
             Pessoa pessoa = new Pessoa();
+            ContaCorrente conta = new ContaCorrente();
+            ContaPoupanca poupanca = new ContaPoupanca();
 
-            Console.WriteLine("Opção: Cadastrar Novo Cliente:\n");
+            Console.Clear();
+            Console.WriteLine(">> Opção: Cadastrar Novo Cliente:\n");
 
             pessoa.CadastrarPessoa();
 
-            
-            Console.WriteLine("Cliente é estudante?\n1-Sim\n2-Não"); //TRATAR ERROS NAS OPÇÕES
+            Console.WriteLine("\n>>> Dados da conta: \n");
+            Console.WriteLine("Cliente é estudante?\n1-Sim\n2-Não");
             this.Est = int.Parse(Console.ReadLine());
-            if (Habilitar == '1')
+            if (Est == '1')
             {
-                Habilitado = true;
+                Estudante = true;
             }
-            else if (Habilitar == '2')
+            else if (Est == '2')
             {
-                Habilitado = false;
+                Estudante = false;
             }
             Console.WriteLine("Digite sua renda mensal em reais: ");
             this.Renda = float.Parse(Console.ReadLine());
+            do
+            {
+                Console.WriteLine("Digite o tipo de conta desejado:\n1-Universitária\n2-Vip\n3-Normal");
+                opcaoConta = int.Parse(Console.ReadLine());
+                if (opcaoConta == 1)
+                {
+                    this.TipoConta = "Conta Universitária";
+                }
+                else if (opcaoConta == 2)
+                {
+                    this.TipoConta = "Conta Vip";
+                }
+                else if (opcaoConta == 3)
+                {
+                    this.TipoConta = "Conta Normal";
+                }
+                else
+                {
+                    Console.WriteLine("Opção inválida! Tente novamente!");
+                }
+            } while (opcaoConta < 1 || opcaoConta > 3);
 
-            if (Renda >= 10000)
-            {
-                this.TipoConta = "Conta Vip";
-                Console.WriteLine($"Conta recomendada: {TipoConta}");
-            }
-            else if (Renda >= 20000 && Renda < 10000)
-            {
-                this.TipoConta = "Conta Normal";
-                Console.WriteLine($"Conta recomendada: {TipoConta}");
-            }
-            else if (Renda < 2000)
-            {
-                this.TipoConta = "Conta Universitária";
-                Console.WriteLine($"Conta recomendada: {TipoConta}");
-            }
-            Console.WriteLine("Digite 1 para aceitar o tipo de conta e 2 para alterar: ");
-            opcaoConta = int.Parse(Console.ReadLine());
-            if (opcaoConta == 1)
-            {
-                this.TipoConta = TipoConta;
-            }
-            else if (opcaoConta == 2)
-            {
-                Console.WriteLine("Digite o tipo de conta desejada:");
-                this.TipoConta = Console.ReadLine();
-                Console.WriteLine($"Opção escolhida: {TipoConta}");
-            }
-            Console.WriteLine("Habilitar cliente?\n1-Sim\n2-Não");//TRATAR ERROS
-            Habilitar = char.Parse(Console.ReadLine());
-            if (Habilitar == '1')
-            {
-                this.Habilitado = true;
-            }
-            else if (Habilitar == '2')
-            {
-                this.Habilitado = false;
-            }
-
+            conta.CadastrarContaCorrente();
             this.pessoa = pessoa;
+            this.contaCorrente = conta;
 
-            
         }
-
+        
         public override string ToString()
         {
-            return ($"{this.pessoa.Nome}"); //REVER ESTE METODO
+            return ($"Nome: {this.pessoa.Nome}\nTelefone:{this.pessoa.Telefone}\nE-mail:{this.pessoa.Email}\nCPF:{this.pessoa.Cpf}\nGênero:{this.pessoa.Genero}\n\nDados do Endereço:{this.pessoa.endereco}"); //REVER ESTE METODO
         }
     }
 

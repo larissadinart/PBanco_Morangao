@@ -19,27 +19,37 @@ namespace PBanco_Morangao
         public DateTime ValidadeCartao { get; set; }
 
 
-        public CartaoCredito()
+        public CartaoCredito() // rever
         {
 
         }
         public void BloqDesbloqCartao()
         {
             Console.WriteLine("Deseja bloquear ou desbloquear a função crédito do seu cartão?\nB-Bloquear\nD-Desbloquear");
+
             HabilitarCredito = char.Parse(Console.ReadLine());
 
-            if(HabilitarCredito == 'D')
+            if (HabilitarCredito == 'D')
             {
                 Habilitado = true;
                 Console.WriteLine("Cartão desbloqueado com sucesso!");
-            }else if(HabilitarCredito == 'B')
+            }
+            else if (HabilitarCredito == 'B')
             {
                 Habilitado = false;
                 Console.WriteLine("Cartão bloqueado com sucesso!");
             }
+            else
+            {
+                Console.WriteLine("Opção inválida!");
+                BloqDesbloqCartao();
+            }
 
-            
+
         }
-        //metodo para criar cartão de credito
+        public override string ToString()
+        {
+            return $"Número do Cartão: {NumCartao}\n\nData vencimento da fatura: {VencFatura}\n";
+        }
     }
 }

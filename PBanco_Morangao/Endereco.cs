@@ -17,6 +17,7 @@ namespace PBanco_Morangao
 
         public Endereco()
         {
+            Console.WriteLine("\n>>Dados do endereço:\n ");
             Console.WriteLine("Digite o nome da rua/avenida: ");
             this.Logradouro = Console.ReadLine();
             Console.WriteLine("Digite o número: ");
@@ -32,7 +33,7 @@ namespace PBanco_Morangao
         }
         public override string ToString()
         {
-            return "Logradouro: " + Logradouro + "\nNº: " + Numero + "\nBairro: " + Bairro + "Cep: " + Cep + "Complemento: " + Complemento + "Cidade: " + Cidade;
+            return "\nLogradouro: " + Logradouro + "," + Numero + "\nBairro: " + Bairro + "\nCep: " + Cep + "\nComplemento: " + Complemento + "\nCidade: " + Cidade;
         }
     }
 }
