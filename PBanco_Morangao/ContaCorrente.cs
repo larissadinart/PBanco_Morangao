@@ -21,25 +21,25 @@ namespace PBanco_Morangao
         public Cliente cliente { get; set; }
         public List<ContaCorrente> Extrato { get; set; } = new List<ContaCorrente>();
         public ContaCorrente()
-
         {
 
         }
-        public void CadastrarContaCorrente()
+        public ContaCorrente CadastrarContaCorrente()
         {
 
             Random contac = new Random();
+            ContaCorrente conta = new ContaCorrente();
 
             int senha, opcao;
             float saldo, limite = 0;
-            this.NumConta = contac.Next();//VERIFICAR COMO GERAR APENAS 6 NUMEROS
-            this.Ag = contac.Next(); //VERIFICAR COMO GERAR APENAS 2 NUMEROS
-            this.Senha = Senha;
-            this.Limite = limite;
+            conta.NumConta = contac.Next(1000,5000).ToString();
+            conta.Ag = contac.Next(10,99).ToString(); 
+            conta.Senha = Senha;
+            conta.Limite = limite;
 
             Console.Clear();
             Console.WriteLine("Cadastre uma senha de 6 dígitos: ");
-            senha = int.Parse(Console.ReadLine());
+            conta.Senha = Console.ReadLine();
             Console.WriteLine("Gostaria de fazer o primeiro depósito?\n1-Sim\n2-Não ");
             opcao = int.Parse(Console.ReadLine());
             switch (opcao)
@@ -47,17 +47,18 @@ namespace PBanco_Morangao
                 case 1:
                     Console.WriteLine("Digite o valor do depósito: ");
                     saldo = float.Parse(Console.ReadLine());
-                    this.Saldo = saldo;
+                    conta.Saldo = saldo;
                     limite = (saldo / 2);
-                    this.Total = saldo + limite; //apenas 2 zeros após a virgula
-                    Console.WriteLine($"\n>>>>>DADOS DA CONTA:<<<<<\n\nAgência: {Ag} \nConta: {this.NumConta}\nLimite: R$ {limite}\nSaldo: R$ {Saldo}\nTotal: R$ {Total}");
+                    conta.Total = saldo + limite; //apenas 2 zeros após a virgula
+                    Console.WriteLine($"\n>>>>>DADOS DA CONTA:<<<<<\n\nAgência: {conta.Ag} \nConta: {conta.NumConta}\nLimite: R$ {conta.Limite}\nSaldo: R$ {conta.Saldo}\nTotal: R$ {conta.Total}");
                     break;
 
                 case 2:
-                    Console.WriteLine($"\n>>>>>DADOS DA CONTA:<<<<<\n\nAgência: {Ag} \nConta: {this.NumConta}\nLimite: R$ {limite}\nSaldo: R$ {Saldo}\nTotal: R$ {Total}");
+                    Console.WriteLine($"\n>>>>>DADOS DA CONTA:<<<<<\n\nAgência: {conta.Ag} \nConta: {conta.NumConta}\nLimite: R$ {conta.Limite}\nSaldo: R$ {conta.Saldo}\nTotal: R$ {conta.Total}");
                     break;
             }
             Console.ReadKey();
+            return conta;
         }
         public void MovimentarSaida(float valor)
         {

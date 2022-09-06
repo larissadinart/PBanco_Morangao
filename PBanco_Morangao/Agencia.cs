@@ -12,13 +12,14 @@ namespace PBanco_Morangao
         public String Nome { get; set; }
 
         private List<ContaCorrente> ListContaCorrente = new List<ContaCorrente>();
-        public List<Funcionario> ListaFuncionarios { get; set; } = new List<Funcionario>();//***** ANALISAR SE AS LISTAS DEVEM, FICAR AQU
 
-        public List<Cliente> ListaClientes { get; set; } = new List<Cliente>();
+        public List<Funcionario> ListaFuncionarios = new List<Funcionario>();
 
-        public List<Cliente> ListaAprovacoesGerente { get; set; } = new List<Cliente>();
+        public List<Cliente> ListaClientes = new List<Cliente>();
 
-        public List<ContaCorrente> ListaAprovacoesEmprestimo { get; set; } = new List<ContaCorrente>();
+        public List<Cliente> ListaAprovacoesGerente  = new List<Cliente>();
+
+        public List<ContaCorrente> ListaAprovacoesEmprestimo  = new List<ContaCorrente>();
 
         public Agencia()
         {
@@ -117,8 +118,7 @@ namespace PBanco_Morangao
                     opcao = Console.ReadLine();
 
                     if (opcao == "1")
-                    {
-                       
+                    { 
                         ListaClientes.Add(cliente);
 
                         ListaAprovacoesGerente.Remove(cliente);

@@ -151,69 +151,73 @@ namespace PBanco_Morangao
         {
             int opCli;
             float saida = 0;
-            int senha = 0;
-            string conta, agencia;
+            string senha;
+            string conta, ag;
             string banco;
             int codBarras;
             float entrada;
 
-            ContaCorrente contacorrente = new ContaCorrente();
+            Console.WriteLine("Digite o número da conta: ");
+            conta = Console.ReadLine();
+            Console.WriteLine("Digite a agência: ");
+            ag = Console.ReadLine();
+            Console.WriteLine("Digite a senha: ");
+            senha = (Console.ReadLine());
 
-                Console.WriteLine("Digite o número da conta: ");
-                conta = Console.ReadLine();
-                Console.WriteLine("Digite a agência: ");
-                agencia = Console.ReadLine();
-                Console.WriteLine("Digite a senha: ");
-                senha = int.Parse(Console.ReadLine());
+            Cliente cliente = agencia.BuscarCliente(conta, ag, senha);
 
-            Cliente cliente = agencia.BuscarCliente;
-
-
-            Console.WriteLine("Digite a operação que deseja fazer:\n1-Sacar\n2-Transferir\n3-Pagamentos\n4-Depositar\n5-Sair");
-            opCli = int.Parse(Console.ReadLine());
-
-
-            if (opCli == 1)
+            if (cliente != null)
             {
 
-                Console.WriteLine(">>SAQUE<<\n");
-                Console.WriteLine("Digite o valor para saque: ");
-                saida = float.Parse(Console.ReadLine());
-                contacorrente.MovimentarSaida(saida);
-            }
-            else if (opCli == 2)
+                Console.WriteLine("Digite a operação que deseja fazer:\n1-Sacar\n2-Transferir\n3-Pagamentos\n4-Depositar\n5-Sair");
+                opCli = int.Parse(Console.ReadLine());
+
+
+                if (opCli == 1)
+                {
+
+                    Console.WriteLine(">>SAQUE<<\n");
+                    Console.WriteLine("Digite o valor para saque: ");
+                    saida = float.Parse(Console.ReadLine());
+                    cliente.contaCorrente.MovimentarSaida(saida);
+                }
+                //else if (opCli == 2)
+                //{
+                //    Console.WriteLine(">>TRANSFERÊNCIA<<\n");
+                //    Console.WriteLine("Digite o número da conta para qual deseja transferir: ");
+                //    conta = Console.ReadLine();
+                //    Console.WriteLine("Digite o número da agência: ");
+                //    banco = Console.ReadLine();
+                //    Console.WriteLine("Digite o valor para transferência: ");
+                //    saida = float.Parse(Console.ReadLine());
+                //    cliente.contaCorrente.MovimentarSaida(saida);
+                //}
+                else if (opCli == 3)
+                {
+                    Console.WriteLine(">>PAGAMENTOS<<\n");
+                    Console.WriteLine("Digite o código de barras da conta: ");
+                    codBarras = int.Parse(Console.ReadLine());
+                    Console.WriteLine("Digite o valor da conta: ");
+                    saida = float.Parse(Console.ReadLine());
+                    cliente.contaCorrente.MovimentarSaida(saida);
+                }
+                else if (opCli == 4)
+                {
+                    Console.WriteLine(">>DEPÓSITO<<\n");
+                    Console.WriteLine("Digite o valor do depósito: ");
+                    entrada = float.Parse(Console.ReadLine());
+                    cliente.contaCorrente.MovimentarEntrada(entrada);
+                }
+                else if (opCli == 5)
+                {
+                    Environment.Exit(0);
+                }
+            }else
             {
-                Console.WriteLine(">>TRANSFERÊNCIA<<\n");
-                Console.WriteLine("Digite o número da conta para qual deseja transferir: ");
-                conta = Console.ReadLine();
-                Console.WriteLine("Digite o número da agência: ");
-                banco = Console.ReadLine();
-                Console.WriteLine("Digite o valor para transferência: ");
-                saida = float.Parse(Console.ReadLine());
-                contacorrente.MovimentarSaida(saida);
-            }
-            else if (opCli == 3)
-            {
-                Console.WriteLine(">>PAGAMENTOS<<\n");
-                Console.WriteLine("Digite o código de barras da conta: ");
-                codBarras = int.Parse(Console.ReadLine());
-                Console.WriteLine("Digite o valor da conta: ");
-                saida = float.Parse(Console.ReadLine());
-                contacorrente.MovimentarSaida(saida);
-            }
-            else if (opCli == 4)
-            {
-                Console.WriteLine(">>DEPÓSITO<<\n");
-                Console.WriteLine("Digite o valor do depósito: ");
-                entrada = float.Parse(Console.ReadLine());
-                contacorrente.MovimentarEntrada(entrada);
-            }
-            else if (opCli == 5)
-            {
-                Environment.Exit(0);
+                Console.WriteLine("Cliente não localizado!");
+                MenuAcessoCliente();
             }
         }
-
 
     }
 }
