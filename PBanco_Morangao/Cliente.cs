@@ -13,23 +13,21 @@ namespace PBanco_Morangao
         public int Est { get; set; }
         public float Renda { get; set; }
         public String TipoConta { get; set; }
-        public ContaCorrente contaCorrente { get; set; }
         public Pessoa pessoa { get; set; }
         public Agencia ag { get; set; }
+        public ContaCorrente contaCorrente { get; set; }
         public ContaPoupanca contaPoupanca { get; set; }
         public CartaoCredito cartaocredito { get; set; }
 
         public Cliente()
         {
-            int opcaoConta;
-            Pessoa pessoa = new Pessoa();
-            ContaCorrente conta = new ContaCorrente();
-            ContaPoupanca poupanca = new ContaPoupanca();
-
-            Console.Clear();
             Console.WriteLine(">> Opção: Cadastrar Novo Cliente:\n");
 
-            pessoa.CadastrarPessoa();
+            int opcaoConta;
+            pessoa = new Pessoa();
+            //ContaPoupanca poupanca = new ContaPoupanca();
+            //Console.Clear();
+            //pessoa.CadastrarPessoa();
 
             Console.WriteLine("\n>>> Dados da conta: \n");
             Console.WriteLine("Cliente é estudante?\n1-Sim\n2-Não");
@@ -66,12 +64,9 @@ namespace PBanco_Morangao
                 }
             } while (opcaoConta < 1 || opcaoConta > 3);
 
-            conta.CadastrarContaCorrente();
-            this.pessoa = pessoa;
-            this.contaCorrente = conta;
-
+            contaCorrente = new ContaCorrente();
         }
-        
+
         public override string ToString()
         {
             return ($"Nome: {this.pessoa.Nome}\nTelefone:{this.pessoa.Telefone}\nE-mail:{this.pessoa.Email}\nCPF:{this.pessoa.Cpf}\nGênero:{this.pessoa.Genero}\n\nDados do Endereço:{this.pessoa.endereco}"); //REVER ESTE METODO

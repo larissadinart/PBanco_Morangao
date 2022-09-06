@@ -22,24 +22,18 @@ namespace PBanco_Morangao
         public List<ContaCorrente> Extrato { get; set; } = new List<ContaCorrente>();
         public ContaCorrente()
         {
-
-        }
-        public ContaCorrente CadastrarContaCorrente()
-        {
-
             Random contac = new Random();
-            ContaCorrente conta = new ContaCorrente();
 
-            int senha, opcao;
+            int opcao;
             float saldo, limite = 0;
-            conta.NumConta = contac.Next(1000,5000).ToString();
-            conta.Ag = contac.Next(10,99).ToString(); 
-            conta.Senha = Senha;
-            conta.Limite = limite;
+            NumConta = contac.Next(1000, 5000).ToString();
+            Ag = contac.Next(10, 99).ToString();
+            Senha = Senha;
+            Limite = limite;
 
             Console.Clear();
             Console.WriteLine("Cadastre uma senha de 6 dígitos: ");
-            conta.Senha = Console.ReadLine();
+            Senha = Console.ReadLine();
             Console.WriteLine("Gostaria de fazer o primeiro depósito?\n1-Sim\n2-Não ");
             opcao = int.Parse(Console.ReadLine());
             switch (opcao)
@@ -47,19 +41,23 @@ namespace PBanco_Morangao
                 case 1:
                     Console.WriteLine("Digite o valor do depósito: ");
                     saldo = float.Parse(Console.ReadLine());
-                    conta.Saldo = saldo;
+                    Saldo = saldo;
                     limite = (saldo / 2);
-                    conta.Total = saldo + limite; //apenas 2 zeros após a virgula
-                    Console.WriteLine($"\n>>>>>DADOS DA CONTA:<<<<<\n\nAgência: {conta.Ag} \nConta: {conta.NumConta}\nLimite: R$ {conta.Limite}\nSaldo: R$ {conta.Saldo}\nTotal: R$ {conta.Total}");
+                    Total = saldo + limite; //apenas 2 zeros após a virgula
+                    Console.WriteLine($"\n>>>>>DADOS DA CONTA:<<<<<\n\nAgência: {Ag} \nConta: {NumConta}\nLimite: R$ {Limite}\nSaldo: R$ {Saldo}\nTotal: R$ {Total}");
                     break;
 
                 case 2:
-                    Console.WriteLine($"\n>>>>>DADOS DA CONTA:<<<<<\n\nAgência: {conta.Ag} \nConta: {conta.NumConta}\nLimite: R$ {conta.Limite}\nSaldo: R$ {conta.Saldo}\nTotal: R$ {conta.Total}");
+                    Console.WriteLine($"\n>>>>>DADOS DA CONTA:<<<<<\n\nAgência: {Ag} \nConta: {NumConta}\nLimite: R$ {Limite}\nSaldo: R$ {Saldo}\nTotal: R$ {Total}");
                     break;
             }
             Console.ReadKey();
-            return conta;
         }
+       /* public ContaCorrente CadastrarContaCorrente()
+        {
+
+           
+        }*/
         public void MovimentarSaida(float valor)
         {
             float total = Saldo + Limite;

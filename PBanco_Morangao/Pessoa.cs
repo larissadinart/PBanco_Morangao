@@ -17,29 +17,25 @@ namespace PBanco_Morangao
 
         public Pessoa()
         {
-        }
-
-        public void CadastrarPessoa()
-        {
             Console.WriteLine("> Dados pessoais:\n");
             Console.WriteLine("Digite o nome: ");
-            this.Nome = Console.ReadLine();
+            Nome = Console.ReadLine();
             Console.WriteLine("Digite o telefone: ");
-            this.Telefone = Console.ReadLine();
+            Telefone = Console.ReadLine();
             Console.WriteLine("Digite o e-mail: ");
-            this.Email = Console.ReadLine();
+            Email = Console.ReadLine();
             Console.WriteLine("Digite o cpf: ");
-            this.Cpf = Console.ReadLine();
+            Cpf = Console.ReadLine();
             Console.WriteLine("Digite o gênero - Masculino/Feminino/Outros: ");
-            this.Genero = Console.ReadLine();
-            this.endereco = new Endereco();
+            Genero = Console.ReadLine();
+            endereco = new Endereco();
         }
 
         public override string ToString()
         {
             return ($"{endereco.ToString()}\nNome: {Nome}\n Telefone: {Telefone} \n E-mail: {Email} \n Cpf: {Cpf} \n Gênero:{Genero}");
-                
-                
+
+
         }
     }
 
