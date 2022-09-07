@@ -17,7 +17,7 @@ namespace PBanco_Morangao
 
         public Pessoa()
         {
-            Console.WriteLine("> Dados pessoais:\n");
+            Console.WriteLine("\n> Dados pessoais:\n");
             Console.WriteLine("Digite o nome: ");
             Nome = Console.ReadLine();
             Console.WriteLine("Digite o telefone: ");

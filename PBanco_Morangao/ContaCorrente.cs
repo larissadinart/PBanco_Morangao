@@ -26,7 +26,7 @@ namespace PBanco_Morangao
             Random contac = new Random();
 
             int opcao;
-            float saldo, limite = 0;
+            float saldo = 0, limite = 0;
             NumConta = contac.Next(1000, 5000).ToString();
             Ag = contac.Next(01, 05).ToString();
             Senha = Senha;
@@ -34,24 +34,39 @@ namespace PBanco_Morangao
             
 
             Console.Clear();
-            Console.WriteLine("Cadastre uma senha de 6 dígitos: ");
+            Console.WriteLine("Cadastre uma senha: ");
             Senha = Console.ReadLine();
-            Console.WriteLine("Gostaria de fazer o primeiro depósito?\n1-Sim\n2-Não ");
-            opcao = int.Parse(Console.ReadLine());
+            do
+            {
+                Console.WriteLine("Gostaria de fazer o primeiro depósito?\n1-Sim\n2-Não ");
+                opcao = int.Parse(Console.ReadLine());
+            }while(opcao < 0 || opcao >2);
             switch (opcao)
             {
                 case 1:
-                    Console.WriteLine("Digite o valor do depósito: ");
-                    saldo = float.Parse(Console.ReadLine());
+                    do
+                    {
+                        Console.WriteLine("Digite o valor do depósito: ");
+                        try
+                        {
+                            saldo = float.Parse(Console.ReadLine());
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Valor inválido!");
+                        }
+                    } while (saldo < 0);
                     Saldo = saldo;
                     Limite = (saldo / 2);
                     Status = "Aguardando aprovação.";
-                    Console.WriteLine($"\n>>>>>DADOS DA CONTA:<<<<<\n\nAgência: {Ag} \nConta: {NumConta}\nLimite: R$ {Limite}\nSaldo: R$ {Saldo}\nStatus: {Status}");
+                    Console.WriteLine($"\n>>>>>DADOS DA CONTA:<<<<<\n\nAgência: {Ag} \nConta: {NumConta}\nSenha: {Senha}\nLimite: R$ {Limite}\nSaldo: R$ {Saldo}\nStatus: {Status}");
+                    Console.WriteLine("\nATENÇÃO: Por favor, anote os dados de agência, conta e senha, você precisará deles para acessar a conta.");
                     Console.WriteLine("\nAperte enter para continuar...");
                     break;
 
                 case 2:
-                    Console.WriteLine($"\n>>>>>DADOS DA CONTA:<<<<<\n\nAgência: {Ag} \nConta: {NumConta}\nLimite: R$ {Limite}\nSaldo: R$ {Saldo}\nStatus: {Status}");
+                    Console.WriteLine($"\n>>>>>DADOS DA CONTA:<<<<<\n\nAgência: {Ag} \nConta: {NumConta}\nSenha: {Senha}\nLimite: R$ {Limite}\nSaldo: R$ {Saldo}\nStatus: {Status}");
+                    Console.WriteLine("\nATENÇÃO: Por favor, anote os dados de agência, conta e senha, você precisará deles para acessar a conta.\n");
                     Console.WriteLine("\nAperte enter para continuar...");
                     break;
             }

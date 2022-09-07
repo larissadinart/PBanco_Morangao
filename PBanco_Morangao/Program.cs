@@ -30,14 +30,16 @@ namespace PBanco_Morangao
             Console.Clear();
             do
             {
+                Console.Clear();
                 Console.WriteLine(">>>>>BEM VINDO AO BANCO MORANGÃO!!<<<<<");
-                Console.WriteLine("\nEscolha a opção desejada: \n\n1- Sou Cliente\n2- Sou Gerente\n3- Sou Funcionário\n4- Cadastrar Primeiro Gerente");
+                Console.WriteLine("\nEscolha a opção desejada: \n\n1- Sou Cliente\n2- Sou Gerente\n3- Sou Funcionário\n4- Cadastrar Func/Gerente");
                 try
                 {
                     tipoAcesso = int.Parse(Console.ReadLine());
                 }
                 catch
                 {
+                    Console.WriteLine("Opção inválida!");
                 }
             } while (tipoAcesso < 1 || tipoAcesso > 4);
 
@@ -48,7 +50,7 @@ namespace PBanco_Morangao
                 MenuSenhaCliente();
             }
             else if (tipoAcesso == 2)
-           {
+            {
                 Console.Clear();
                 Console.WriteLine(">> Opção: Sou Gerente <<\n");
                 Console.WriteLine("Digite o ID do Gerente: ");
@@ -58,9 +60,16 @@ namespace PBanco_Morangao
 
                 Funcionario funcionario = agencia.BuscarListFuncionario(idfunc, senha);
 
-                if (funcionario != null && idfunc.Length == 3)
+                if (funcionario != null && idfunc == funcionario.IdFunc && senha == funcionario.Senha)
                 {
                     MenuAcessoGer();
+                }
+                else
+                {
+                    Console.WriteLine("Senha inválida! Tente novamente!");
+                    Console.WriteLine("\nAperte enter para continuar...\n");
+                    Console.ReadKey();
+                    MenuTipoAcesso();
                 }
             }
 
@@ -75,33 +84,41 @@ namespace PBanco_Morangao
 
                 Funcionario funcionario = agencia.BuscarListFuncionario(idfunc, senha);
 
-                if (funcionario != null && idfunc.Length == 2)
+                if (funcionario != null && idfunc == funcionario.IdFunc && senha == funcionario.Senha)
                 {
                     MenuAcessoFunc();
+                }
+                else
+                {
+                    Console.WriteLine("Senha inválida! Tente novamente!");
+                    Console.WriteLine("\nAperte enter para continuar...\n");
+                    Console.ReadKey();
+                    MenuTipoAcesso();
                 }
             }
 
             else if (tipoAcesso == 4)
             {
                 Console.Clear();
-                Console.WriteLine("Opção: Cadastrar Primeiro Funcionário:\n");
+                Console.WriteLine("Opção: Cadastrar Primeiro Funcionário:\n\n");
+                Console.WriteLine(">>>> Para o bom andamento do sistema, recomenda-se cadastrar primeiro a função Gerente!\n\nUtilizar a ID: Admin e Senha: Admin\n\n");
+                
                 Console.WriteLine("Digite o ID do Administrador: ");
                 idfunc = Console.ReadLine();
                 Console.WriteLine("Digite a senha do administrador: ");
                 senha = Console.ReadLine();
 
-                if (idfunc == senPadrao && senha == idPadrao)
+                if (idfunc == idPadrao && senha == senPadrao)
                 {
                     Funcionario funcionario = new Funcionario();
                     agencia.AdcFuncLista(funcionario);
                     MenuTipoAcesso();
                 }
-            }
-
-            else
-            {
-                Console.WriteLine("\nOpção inválida, tente novamente!\n");
-                MenuTipoAcesso();
+                else
+                {
+                    Console.WriteLine("\nOpção inválida, tente novamente!\n");
+                    MenuTipoAcesso();
+                }
             }
 
         }
@@ -136,14 +153,22 @@ namespace PBanco_Morangao
 
         static public void MenuAcessoGer()
         {
-            int opGer;
+            int opGer = 0;
 
             do
             {
                 Console.Clear();
-                Console.WriteLine("Digite a operação que deseja fazer: \n\n1- Abrir Lista De Aprovações Pendentes\n2- Cadastrar Novo Funcionário\n3- Acessar Lista de Funcionários\n4- Sair");
-                opGer = int.Parse(Console.ReadLine());
-            } while (opGer < 1 || opGer > 4);
+                Console.WriteLine("Digite a operação que deseja fazer: \n\n1- Abrir Lista De Aprovações Pendentes\n2- Cadastrar Novo Funcionário\n3- Acessar Lista de Funcionários\n4- Voltar ao menu anterior\n5- Sair");
+                try
+                {
+                    opGer = int.Parse(Console.ReadLine());
+                }
+                catch 
+                {
+                    Console.WriteLine("Opção inválida!");
+                }
+
+            } while (opGer < 1 || opGer > 5);
 
             if (opGer == 1)
             {
@@ -165,8 +190,12 @@ namespace PBanco_Morangao
             }
             else if (opGer == 4)
             {
-                Environment.Exit(0);
+                MenuTipoAcesso();
 
+            }
+            else if (opGer == 5)
+            {
+                Environment.Exit(0);
             }
 
 
@@ -176,6 +205,7 @@ namespace PBanco_Morangao
         {
 
             Console.Clear();
+            Console.WriteLine(">>>> ACESSO CLIENTE <<<<\n\n");
             Console.WriteLine("Digite o número da conta: ");
             conta = Console.ReadLine();
             Console.WriteLine("Digite a agência: ");
@@ -189,16 +219,45 @@ namespace PBanco_Morangao
             {
                 MenuAcessoCliente(cliente);
             }
+            else
+            {
+                int volta;
+                Console.WriteLine("\nConta Agência ou Senha inválidas ou não cadastradas! Tente novamente!\n\n");
+                Console.WriteLine("Aperte qualquer tecla para continuar ou 0 para voltar ao menu anterior...");
+                volta = int.Parse(Console.ReadLine());
+
+                if(volta == 0)
+                {
+                    MenuTipoAcesso();
+                }
+                else
+                {
+                    MenuTipoAcesso();
+                }
+                Console.ReadKey();
+            }
         }
         static public void MenuAcessoCliente(Cliente cliente)
         {
             do
             {
-                Console.WriteLine("Digite a operação que deseja fazer:\n1- Sacar\n2- Transferir\n3- Pagamentos\n4- Depositar\n5- Consultar Saldo\n6- Sair");
-                opcaoCliente = int.Parse(Console.ReadLine());
-            } while (opcaoCliente < 1 || opcaoCliente > 6);
+                Console.Clear();
+                Console.WriteLine("Digite a operação que deseja fazer:\n1- Sacar\n2- Transferir\n3- Pagamentos\n4- Depositar\n5- Consultar Saldo\n6- Sair\n0- Voltar ao Menu Anterior");
+                try
+                {
+                    opcaoCliente = int.Parse(Console.ReadLine());
+                }
+                catch 
+                {
+                    Console.WriteLine("Opção inválida!");
+                }
+            } while (opcaoCliente < 0 || opcaoCliente > 6);
 
-            if (opcaoCliente == 1)
+            if (opcaoCliente == 0)
+            {
+                MenuTipoAcesso();
+            }
+            else if (opcaoCliente == 1)
             {
 
                 Console.WriteLine(">>SAQUE<<\n");

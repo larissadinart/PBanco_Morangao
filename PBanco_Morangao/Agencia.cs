@@ -15,6 +15,8 @@ namespace PBanco_Morangao
 
         public List<Funcionario> ListFuncionarios = new List<Funcionario>();
 
+        public List<Funcionario> ListGerentes = new List<Funcionario>();
+
         public List<Cliente> ListClientes = new List<Cliente>();
 
         public List<Cliente> ListAprovContasGer = new List<Cliente>();
@@ -64,7 +66,6 @@ namespace PBanco_Morangao
             foreach (var item in ListFuncionarios) if (item != null)
                     return item;
 
-            Console.WriteLine($"Não há funcionários cadastrados!");
             return null;
 
         }
@@ -162,6 +163,12 @@ namespace PBanco_Morangao
                 {
                     return cliente;
                 }
+                else
+                {
+                    Console.WriteLine("\nAinda não há clientes cadastrados na agência!\n\n");
+                    Console.WriteLine("Aperte enter para continuar....");
+                    Console.ReadKey();
+                }
             }
             return null;
         }
@@ -178,8 +185,14 @@ namespace PBanco_Morangao
             }
             return null;
         }
-    }
 
+        public void AdcGerenteLista(Funcionario funcionario)
+        {
+            ListGerentes.Add(funcionario);
+            Console.WriteLine("Cadastro realizado com sucesso!");
+        }
+    }
+    
 
 }
 

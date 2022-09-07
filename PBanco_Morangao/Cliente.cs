@@ -23,7 +23,7 @@ namespace PBanco_Morangao
         {
             Console.WriteLine(">> Opção: Cadastrar Novo Cliente:\n");
 
-            int opcaoConta;
+            int opcaoConta = 0;
             pessoa = new Pessoa();
             //ContaPoupanca poupanca = new ContaPoupanca();
 
@@ -33,10 +33,10 @@ namespace PBanco_Morangao
                 Console.WriteLine("Cliente é estudante?\n1-Sim\n2-Não");
                 try
                 {
-                    this.Est = int.Parse(Console.ReadLine());
+                    Est = int.Parse(Console.ReadLine());
                 }
                 catch { }
-            }while(this.Est < 0 || this.Est > 2);
+            } while (Est < 1 || Est > 2);
             if (Est == '1')
             {
                 Estudante = true;
@@ -45,38 +45,56 @@ namespace PBanco_Morangao
             {
                 Estudante = false;
             }
-            Console.WriteLine("Digite sua renda mensal em reais: ");
-            Renda = float.Parse(Console.ReadLine());
+            do
+            {
+                Console.WriteLine("Digite sua renda mensal em reais: ");
+                try
+                {
+                    Renda = float.Parse(Console.ReadLine());
+                }
+                catch { Console.WriteLine("Valor inválido!"); }
+            }while (Renda < 0 );
+
             do
             {
                 Console.WriteLine("Digite o tipo de conta desejado:\n1-Universitária\n2-Vip\n3-Normal");
-                opcaoConta = int.Parse(Console.ReadLine());
-                if (opcaoConta == 1)
+                try
                 {
-                    TipoConta = "Conta Universitária";
+                    opcaoConta = int.Parse(Console.ReadLine());
                 }
-                else if (opcaoConta == 2)
+                catch
                 {
-                    TipoConta = "Conta Vip";
-                }
-                else if (opcaoConta == 3)
-                {
-                    TipoConta = "Conta Normal";
-                }
-                else
-                {
-                    Console.WriteLine("Opção inválida! Tente novamente!");
+                    Console.WriteLine("Opção inválida!");
                 }
             } while (opcaoConta < 1 || opcaoConta > 3);
+            if (opcaoConta == 1)
+            {
+                TipoConta = "Conta Universitária";
+            }
+            else if (opcaoConta == 2)
+            {
+                TipoConta = "Conta Vip";
+            }
+            else if (opcaoConta == 3)
+            {
+                TipoConta = "Conta Normal";
+            }
+            else
+            {
+                Console.WriteLine("Opção inválida! Tente novamente!");
+            }
+
 
             contaCorrente = new ContaCorrente();
         }
+
 
         public override string ToString()
         {
             return ($"Nome: {this.pessoa.Nome}\nTelefone:{this.pessoa.Telefone}\nE-mail:{this.pessoa.Email}\nCPF:{this.pessoa.Cpf}\nGênero:{this.pessoa.Genero}\n\nDados do Endereço:{this.pessoa.endereco}"); //REVER ESTE METODO
         }
     }
-
 }
+
+
 
