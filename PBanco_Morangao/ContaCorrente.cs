@@ -8,6 +8,7 @@ namespace PBanco_Morangao
 {
     internal class ContaCorrente
     {
+        public string Status { get; set; }
         public string Ag { get; set; }
         public String Senha { get; set; }
         public string NumConta { get; set; }
@@ -27,9 +28,10 @@ namespace PBanco_Morangao
             int opcao;
             float saldo, limite = 0;
             NumConta = contac.Next(1000, 5000).ToString();
-            Ag = contac.Next(10, 99).ToString();
+            Ag = contac.Next(01, 05).ToString();
             Senha = Senha;
             Limite = limite;
+            
 
             Console.Clear();
             Console.WriteLine("Cadastre uma senha de 6 dígitos: ");
@@ -42,24 +44,22 @@ namespace PBanco_Morangao
                     Console.WriteLine("Digite o valor do depósito: ");
                     saldo = float.Parse(Console.ReadLine());
                     Saldo = saldo;
-                    limite = (saldo / 2);
-                    Total = saldo + limite; //apenas 2 zeros após a virgula
-                    Console.WriteLine($"\n>>>>>DADOS DA CONTA:<<<<<\n\nAgência: {Ag} \nConta: {NumConta}\nLimite: R$ {Limite}\nSaldo: R$ {Saldo}\nTotal: R$ {Total}");
+                    Limite = (saldo / 2);
+                    Status = "Aguardando aprovação.";
+                    Console.WriteLine($"\n>>>>>DADOS DA CONTA:<<<<<\n\nAgência: {Ag} \nConta: {NumConta}\nLimite: R$ {Limite}\nSaldo: R$ {Saldo}\nStatus: {Status}");
+                    Console.WriteLine("\nAperte enter para continuar...");
                     break;
 
                 case 2:
-                    Console.WriteLine($"\n>>>>>DADOS DA CONTA:<<<<<\n\nAgência: {Ag} \nConta: {NumConta}\nLimite: R$ {Limite}\nSaldo: R$ {Saldo}\nTotal: R$ {Total}");
+                    Console.WriteLine($"\n>>>>>DADOS DA CONTA:<<<<<\n\nAgência: {Ag} \nConta: {NumConta}\nLimite: R$ {Limite}\nSaldo: R$ {Saldo}\nStatus: {Status}");
+                    Console.WriteLine("\nAperte enter para continuar...");
                     break;
             }
             Console.ReadKey();
         }
-       /* public ContaCorrente CadastrarContaCorrente()
-        {
-
-           
-        }*/
         public void MovimentarSaida(float valor)
         {
+
             float total = Saldo + Limite;
 
             if (Saldo + Limite < valor)
@@ -68,15 +68,16 @@ namespace PBanco_Morangao
             }
             else
             {
-                total = total - valor;//rever este clculo!!!
-                Console.WriteLine("Saque feito com sucesso!");
+                Saldo -= valor;
+                Console.WriteLine("Transação feito com sucesso!");
+                Console.WriteLine($"Saldo: {Saldo}");
             }
         }
-
-
         public void MovimentarEntrada(float valor)
         {
-            Saldo = Saldo + valor;
+            Saldo += valor;
+            Console.WriteLine("Depósito realizado com sucesso!");
+            Console.WriteLine($"Saldo: {Saldo}");
         }
         public void SolicitarEmprestimo(float valor) //montar este metodo
         {

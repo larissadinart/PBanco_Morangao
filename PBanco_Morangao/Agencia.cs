@@ -13,56 +13,62 @@ namespace PBanco_Morangao
 
         private List<ContaCorrente> ListContaCorrente = new List<ContaCorrente>();
 
-        public List<Funcionario> ListaFuncionarios = new List<Funcionario>();
+        public List<Funcionario> ListFuncionarios = new List<Funcionario>();
 
-        public List<Cliente> ListaClientes = new List<Cliente>();
+        public List<Cliente> ListClientes = new List<Cliente>();
 
-        public List<Cliente> ListaAprovacoesGerente  = new List<Cliente>();
+        public List<Cliente> ListAprovContasGer = new List<Cliente>();
 
-        public List<ContaCorrente> ListaAprovacoesEmprestimo  = new List<ContaCorrente>();
+        public List<ContaCorrente> ListAprovEmprGer = new List<ContaCorrente>();
+
+        public List<ContaCorrente> ListExtrato = new List<ContaCorrente>();
 
         public Agencia()
         {
 
         }
 
-        public void AdcClienteListaGerente(Cliente cliente)
+        public void AdcClienteAprovConta(Cliente cliente)
         {
-            ListaAprovacoesGerente.Add(cliente);
+            ListAprovContasGer.Add(cliente);
             Console.WriteLine("Cliente incluído com sucesso!");
         }
-        public Cliente GetListaGerente()
+        public Cliente BuscaListAprovContaGer()
         {
-            foreach (var item in ListaAprovacoesGerente) if (item != null)
+            foreach (var item in ListAprovContasGer) if (item != null)
                     return item;
-            Console.WriteLine("Não há empréstimos para aprovar!");
+            Console.WriteLine("Não há contas para aprovar!");
             return null;
         }
-        public void DelCliente(Cliente cliente)
+        public void RemoverClienteAgencia(Cliente cliente)
         {
-            ListaClientes.Remove(cliente);
+            ListClientes.Remove(cliente);
+            Console.WriteLine("Cliente excluído com sucesso!");
         }
-        public void AddFuncionario(Funcionario funcionario)
+        public void AdcFuncLista(Funcionario funcionario)
         {
-            ListaFuncionarios.Add(funcionario);
+            ListFuncionarios.Add(funcionario);
             Console.WriteLine("Cadastro realizado com sucesso!");
-        } //ok
-        public void AddConta(ContaCorrente conta)
+        }
+        public void AdcCCList(ContaCorrente conta)
         {
             ListContaCorrente.Add(conta);
             Console.WriteLine("Cadastro realizado com sucesso!");
-        }//ok
-        public void DelFuncionario(Funcionario funcionario)
+        }
+        public void RemoverFuncionarioAgencia(Funcionario funcionario)
         {
-            ListaFuncionarios.Remove(funcionario);
-        }//ok
-        public void GetListFuncionarios()
+            ListFuncionarios.Remove(funcionario);
+        }
+        public Funcionario BuscarListFuncionario(string id, string senha)
         {
-            foreach (var item in ListaFuncionarios)
-                if (item != null) Console.WriteLine($"FUNCIONÁRIO: {ListaFuncionarios}\n{item}\n");
-                else Console.WriteLine("Não existem funcionários cadastrados!");
-        } //ok
-        public void GetListConta()
+            foreach (var item in ListFuncionarios) if (item != null)
+                    return item;
+
+            Console.WriteLine($"Não há funcionários cadastrados!");
+            return null;
+
+        }
+        public void BuscarListaContas()
         {
             foreach (var item in ListContaCorrente)
             {
@@ -73,80 +79,104 @@ namespace PBanco_Morangao
                 }
                 else Console.WriteLine("A lista está vazia!");
             }
-        }//ok
-        public Cliente BuscarAprovacoesContas()
+        }
+        public Cliente BuscarAprovacoesPendetesGer()
         {
-            foreach (var item in ListaAprovacoesGerente) if (item != null) return item;
+            foreach (var item in ListAprovContasGer) if (item != null) return item;
             return null;
         }
         public void setListaAprovacaoContas(Cliente cliente)
         {
-            ListaAprovacoesGerente.Add(cliente);
+            ListAprovContasGer.Add(cliente);
             Console.WriteLine("Aguardando aprovação do gerente...");
-        }//ok
+        }
         public void DelListaAprovacao(Cliente cliente)
         {
-            ListaAprovacoesGerente.Remove(cliente);
-        }//ok
+            ListAprovContasGer.Remove(cliente);
+        }
         public ContaCorrente getSolicitacaoEmprestimo()
         {
-            foreach (var item in ListaAprovacoesEmprestimo) if (item != null) return item;
+            foreach (var item in ListAprovEmprGer) if (item != null) return item;
             Console.WriteLine("Não há empréstimos para aprovar!");
             return null;
-        }//ok
+        }
         public void SetSolicitacaoEmprestimo(ContaCorrente conta)
         {
-            ListaAprovacoesEmprestimo.Add(conta);
+            ListAprovEmprGer.Add(conta);
             Console.WriteLine("Aguardando aprovação...");
         }
         public void DelSolicitacaoEmprestimo(ContaCorrente conta)
         {
-            ListaAprovacoesEmprestimo.Remove(conta);
-        }//ok
+            ListAprovEmprGer.Remove(conta);
+        }
         public void AprovarAberturaContas()
         {
             {
                 Console.Clear();
 
-                for (int i = 0; i < ListaAprovacoesGerente.Count; i++)
+                if (ListAprovContasGer != null)
                 {
-                    Cliente cliente = ListaAprovacoesGerente[i];
 
-                    Console.WriteLine("\n" + cliente + "\n");
-                    string opcao;
-                    Console.WriteLine("Deseja aprovar este cliente?\n1- Sim\n2- Não");
-                    opcao = Console.ReadLine();
-
-                    if (opcao == "1")
-                    { 
-                        ListaClientes.Add(cliente);
-
-                        ListaAprovacoesGerente.Remove(cliente);
-
-                        i -= 1;
-                    }
-
-                    else
+                    for (int i = 0; i < ListAprovContasGer.Count; i++)
                     {
-                        Console.WriteLine("NÃO APROVADO.");
+                        Cliente cliente = ListAprovContasGer[i];
 
-                        ListaAprovacoesGerente.Remove(cliente);
+                        Console.WriteLine($"\n{cliente}\n");
+                        string opcao;
+                        Console.WriteLine("Deseja aprovar este cliente?\n1- Sim\n2- Não");
+                        opcao = Console.ReadLine();
+
+                        if (opcao == "1")
+                        {
+                            ListClientes.Add(cliente);
+
+                            ListAprovContasGer.Remove(cliente);
+
+                            i -= 1;
+                            Console.WriteLine("Cliente aprovado com sucesso!\n\nAperte enter para continuar...");
+                            Console.ReadKey();
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("Não aprovado!");
+
+                            ListAprovContasGer.Remove(cliente);
+                        }
                     }
                 }
-
-                Console.WriteLine("Fim das solicitações!\nAperte 0 para voltar.");
-                Console.ReadKey();
+                else
+                {
+                    Console.WriteLine("Não há contas pendentes de aprovação!g");
+                    Console.ReadKey();
+                }
+                
             }
+            
         }
         public Cliente BuscarCliente(string conta, string agencia, string senha)
         {
-            foreach (Cliente cliente in ListaClientes)
+            foreach (Cliente cliente in ListClientes)
             {
                 if (cliente != null && cliente.contaCorrente.NumConta == conta && cliente.contaCorrente.Ag == agencia && cliente.contaCorrente.Senha == senha)
                 {
                     return cliente;
                 }
-            }return null;
+            }
+            return null;
+        }
+        public Funcionario BuscarListaFuncionarios(string id, string senha)
+        {
+            foreach (Funcionario funcionario in ListFuncionarios)
+            {
+                if (funcionario != null && funcionario.IdFunc == id && funcionario.Senha == senha)
+                {
+                    return funcionario;
+                }
+                else { Console.WriteLine("Senha inválida! Tente novamente!"); }
+                Console.ReadKey();
+            }
+            return null;
         }
     }
 

@@ -26,12 +26,17 @@ namespace PBanco_Morangao
             int opcaoConta;
             pessoa = new Pessoa();
             //ContaPoupanca poupanca = new ContaPoupanca();
-            //Console.Clear();
-            //pessoa.CadastrarPessoa();
 
             Console.WriteLine("\n>>> Dados da conta: \n");
-            Console.WriteLine("Cliente é estudante?\n1-Sim\n2-Não");
-            this.Est = int.Parse(Console.ReadLine());
+            do
+            {
+                Console.WriteLine("Cliente é estudante?\n1-Sim\n2-Não");
+                try
+                {
+                    this.Est = int.Parse(Console.ReadLine());
+                }
+                catch { }
+            }while(this.Est < 0 || this.Est > 2);
             if (Est == '1')
             {
                 Estudante = true;
@@ -41,22 +46,22 @@ namespace PBanco_Morangao
                 Estudante = false;
             }
             Console.WriteLine("Digite sua renda mensal em reais: ");
-            this.Renda = float.Parse(Console.ReadLine());
+            Renda = float.Parse(Console.ReadLine());
             do
             {
                 Console.WriteLine("Digite o tipo de conta desejado:\n1-Universitária\n2-Vip\n3-Normal");
                 opcaoConta = int.Parse(Console.ReadLine());
                 if (opcaoConta == 1)
                 {
-                    this.TipoConta = "Conta Universitária";
+                    TipoConta = "Conta Universitária";
                 }
                 else if (opcaoConta == 2)
                 {
-                    this.TipoConta = "Conta Vip";
+                    TipoConta = "Conta Vip";
                 }
                 else if (opcaoConta == 3)
                 {
-                    this.TipoConta = "Conta Normal";
+                    TipoConta = "Conta Normal";
                 }
                 else
                 {
