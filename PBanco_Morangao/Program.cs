@@ -82,7 +82,7 @@ namespace PBanco_Morangao
                 Console.WriteLine("Digite a senha de acesso: ");
                 senha = Console.ReadLine();
 
-                Funcionario funcionario = agencia.BuscarListFuncionario(idfunc, senha);
+                Funcionario funcionario = agencia.BuscarListFuncionario(idfunc, senha); 
 
                 if (funcionario != null && idfunc == funcionario.IdFunc && senha == funcionario.Senha)
                 {
@@ -173,6 +173,8 @@ namespace PBanco_Morangao
             if (opGer == 1)
             {
                 agencia.AprovarAberturaContas();
+                Console.WriteLine("Aperte enter para continuar...");
+                Console.ReadKey();
                 MenuTipoAcesso();
             }
             else if (opGer == 2)
@@ -184,8 +186,10 @@ namespace PBanco_Morangao
             }
             else if (opGer == 3)
             {
-                // agencia.BuscarListFuncionario();
-                //MenuAcessoGer();
+                Console.WriteLine("Opção em construção...\n\nAperte enter para continuar...");
+                Console.ReadKey();
+                MenuAcessoGer();
+
 
             }
             else if (opGer == 4)

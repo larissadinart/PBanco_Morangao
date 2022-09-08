@@ -61,7 +61,7 @@ namespace PBanco_Morangao
         {
             ListFuncionarios.Remove(funcionario);
         }
-        public Funcionario BuscarListFuncionario(string id, string senha)
+        public Funcionario BuscarListFuncionario(string id, string senha) //está sobrescrevendo gerente, pq?
         {
             foreach (var item in ListFuncionarios) if (item != null)
                     return item;
